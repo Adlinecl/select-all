@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>全选</title>
+	<script src="./js/jquery-3.2.0.min.js"></script>
+	<style type="text/css">
+		*{
+			padding: 0;
+			padding: 0;
+		}
+		.clearfix::after{
+			content: "";
+			height: 0;
+			clear: both;
+			display: block; 
+		}
+		body{
+			background-color: #fff;
+			padding: 15px 20px;
+		}
+		.topLeft, .nextBtn{
+			float: left;
+		}
+		.topRight, .allBtn{
+			float: right;
+		}
+		.middle .button{
+			float: right;
+			z-index: 9999;
+		}
+		.button span{
+			width:2.5rem;
+        	height:2.5rem;
+        	display:block;
+		}
+		.line{
+			border-bottom: 1px solid #e1e8ef;
+			margin:0 0 0 5rem;
+			/*position: relative;*/
+			top:-2rem;
+			left:0;
+		}
+		.middle img{
+			height:4.0rem;
+			width:4.0rem;
+			padding:1rem 0 0 1rem;
+		}
+		.tip{
+			position: relative;
+			top:-4.0rem;
+			left:5rem;
+		}
+		.tip span{
+			font-family:PingFangSC-Regular;
+			font-size:1.6rem;
+			letter-spacing:-0.04rem;
+			line-height:1.6rem;
+			padding:0 0.5rem;
+		}
+		.tip span{
+			color:#323232;
+		}
+		.tip span.gan{
+			color:#666666;
+		}
+		.tip p{
+			font-family:PingFangSC-Regular;
+			font-size:1.3rem;
+			color:#666666;
+			margin: 0.2rem 0 0 0.5rem;
+		}
+		.tip .content{
+			padding:2rem 0 0 0rem;
+		}
+		.tip .content a{
+			background:#f9f9f9;
+			border-radius:2px;
+			width:51px;
+			height:20px;
+			padding:0 1rem;
+			color:#bcbcbc;
+			font-size: 1.3rem;
+		}
+		 .nextBtn {
+            width: 70%;
+            display: inline-block;
+            background:#1c91e0;
+            height: 4rem;
+            line-height: 4rem;
+            text-align: center;
+            color: #fff;
+            font-size: 1.5rem;
+        }
+        .selectAll {
+            font-size: 1.5rem;
+            display: inline-block;
+            width: 30%;
+            height: 4rem;
+            line-height: 4rem;
+            text-align: center;
+            color: #000;
+        }
+        .allBtn {
+            width: 2.5rem;
+            height: 2.5rem;
+            display: inline-block;
+            vertical-align: -0.4rem;
+        }
+        .selected{
+        	background-image: url("./image/selected.png");
+            background-size: 100% 100%;
+        }
+         .noSelect{
+        	background-image: url("./image/no-selected.png");
+            background-size: 100% 100%;
+        }
+         .allSelect{
+            background-image: url("./image/selected.png");
+            background-size: 100% 100%;
+        }
+          .allNoSelect {
+            background-image: url("./image/no-selected.png");
+            background-size: 100% 100%;
+        }
+	</style>
+</head>
+<body>
+	<div id="main">
+		<div class="top clearfix">
+			<div class="topLeft">
+				<p>已经选中<span class="change">0</span>人</p>
+			</div>
+			<div class="topRight">
+				<p>关闭管理</p>
+			</div>
+		</div>
+		<div class="middle">
+			<div class="button">
+				<span class="selectBtn noSelect"></span>
+			</div>
+			<img src="./image/tx.png">
+			<div class="tip">
+				<span>天小时</span>
+				<span class="gan">感冒</span>
+				<p>男 27岁</p>
+				<div class="content">
+					<a>已支付</a>
+					<a>黑龙江/哈尔滨</a>
+				</div>
+			</div>
+			<div class="line"></div>
+		</div>
+		<div class="middle">
+			<div class="button">
+				<span class="selectBtn noSelect"></span>
+			</div>
+			<img src="./image/tx.png">
+			<div class="tip">
+				<span>天小时</span>
+				<span class="gan">感冒</span>
+				<p>男 27岁</p>
+				<div class="content">
+					<a>已支付</a>
+					<a>黑龙江/哈尔滨</a>
+				</div>
+			</div>
+			<div class="line"></div>
+		</div>
+		<div class="middle">
+			<div class="button">
+				<span class="selectBtn noSelect"></span>
+			</div>
+			<img src="./image/tx.png">
+			<div class="tip">
+				<span>天小时</span>
+				<span class="gan">感冒</span>
+				<p>男 27岁</p>
+				<div class="content">
+					<a>已支付</a>
+					<a>黑龙江/哈尔滨</a>
+				</div>
+			</div>
+			<div class="line"></div>
+		</div>
+		<div class="footer clearfix">
+			<div class="nextBtn">下一步</div>
+			<div class="selectAll">全选<span class="allBtn allNoSelect"></span></div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(function(){
+			//单个选中
+			$(".button").click(function(){
+				$(this).toggleClass("selected");
+				var selectedNum = $(".button.selected").length;
+				var selectedBtnNum = $(".button").length;
+				$(".change").text(selectedNum);
+				if(selectedNum == selectedBtnNum){
+					$(".allBtn").addClass("allSelect").removeClass("allNoSelect");
+
+				}else{
+						$(".allBtn").addClass("allNoSelect").removeClass("allSelect");
+					}
+			});
+			//全选
+			$(".selectAll").click(function(){
+				if($(".allBtn").hasClass("allNoSelect")){
+					$(".allBtn").addClass("allSelect").removeClass("allNoSelect");
+					$(".button").addClass("selected").removeClass("noSelect");
+					var selectedNum = $(".selected").length;
+					var selectedBtnNum = $(".selectBtn").length;
+					$(".change").text(selectedNum);
+				}else{
+					$(".allBtn").addClass("allNoSelect").removeClass("allSelect");
+					$(".button").addClass("noSelect").removeClass("selected");
+					$(".change").text(0);
+				}
+			})
+		})
+	</script>
+</body>
+</html>
